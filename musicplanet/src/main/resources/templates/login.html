@@ -20,4 +20,22 @@
             <button type="submit">Login</button>
         </div>
     </form>
+    <button onclick="getSpotifyUserLogin()">getSpotifyUserLogin</button>
+    <script>
+        const getSpotifyUserLogin = () => {
+            fetch('/api/spotify/login', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.text())
+            .then(response => {
+                window.location.replace(response);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
