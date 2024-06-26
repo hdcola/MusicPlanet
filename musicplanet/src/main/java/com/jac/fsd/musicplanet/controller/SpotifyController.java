@@ -27,9 +27,9 @@ public class SpotifyController {
 
     @GetMapping("/spotify/callback")
     public String SpotifyCallback(@RequestParam("code") String userCode, HttpServletResponse response) throws IOException {
-        SpotifyApi spotifyApi = spotifyService.getAccessToken(userCode);
+        SpotifyApi spotifyApi = spotifyService.getAccessToken("danny", userCode);
 
-        response.sendRedirect("/top-artists");
+        response.sendRedirect("/playlists");
 
         return spotifyApi.getAccessToken();
     }
