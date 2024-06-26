@@ -10,4 +10,9 @@ public class HomeController {
     public String index(){
         return "login";
     }
+
+    @GetMapping("/top-artists")
+    public String topArtists(){
+        return "top-artists";
+    }
 }
