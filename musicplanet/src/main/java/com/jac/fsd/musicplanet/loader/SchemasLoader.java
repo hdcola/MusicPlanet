@@ -29,15 +29,18 @@ public class SchemasLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Resource sql = new ClassPathResource("data/schema.sql");
         Stream<String> lines = Files.lines(Paths.get(sql.getURI()));
-        List<String> sqlStatements = lines.toList();
+        String sqlStatementsString = lines.collect(Collectors.joining());
         lines.close();
+
+        String[] sqlStatements = sqlStatementsString.split(";");
 
         log.info("SchemasLoader Executing SQL statements from schema.sql");
         for(String sqlStatement : sqlStatements) {
+            sqlStatement = sqlStatement.trim();
             if(sqlStatement.isBlank()) {
                 continue;
             }
-            log.info("Executing SQL statement: " + sqlStatement);
+            log.info("Executing SQL statement: \n" + sqlStatement);
             jdbcTemplate.execute(sqlStatement);
         }
     }
