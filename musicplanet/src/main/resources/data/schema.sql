@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS artists ( artist_name VARCHAR(100) NOT NULL PRIMARY K
 
 CREATE TABLE IF NOT EXISTS `tracks` (
   `track_id` INT NOT NULL,
-  `track_name` VARCHAR(45) NULL,
+  `track_name` VARCHAR(300) NULL,
   `album_id` INT NULL,
   `artist_id` INT NULL,
   PRIMARY KEY (`track_id`));

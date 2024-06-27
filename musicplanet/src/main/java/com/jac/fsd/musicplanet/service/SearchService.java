@@ -75,7 +75,7 @@ public class SearchService {
         }
     }
 
-    public Artist getArtistId(String theArtistName) {
+    public Artist getArtistByName(String theArtistName) {
         var theArtistId = artistRepository.getArtistId(theArtistName);
         Artist artistObj =  Artist.builder()
                 .artistName(theArtistName)

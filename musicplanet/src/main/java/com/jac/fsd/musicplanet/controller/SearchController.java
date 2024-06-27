@@ -27,8 +27,8 @@ public class SearchController {
 
 
     @GetMapping("/api/artist/{artistName}")
-    public Artist getArtistIdByName(@PathVariable String artistName){
-        return service.getArtistId(artistName);
+    public Artist getArtistByName(@PathVariable String artistName){
+        return service.getArtistByName(artistName);
     }
 
     // theaudiodb API allows the user to search for artist details (including biography) by entering the artist ID.
@@ -36,7 +36,7 @@ public class SearchController {
     // so when the user types the artist name, our method will get the artist ID first, and then it will use the ID to get the biography
     @GetMapping("/api/biography/{artistName}")
     public Biography getBiography(@PathVariable String artistName){
-        int artistId = this.getArtistIdByName(artistName).getArtistId();
+        int artistId = this.getArtistByName(artistName).getArtistId();
         return service.getBiography(artistId);
     }
 
