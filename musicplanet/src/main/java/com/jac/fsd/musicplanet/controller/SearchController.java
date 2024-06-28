@@ -50,4 +50,14 @@ public class SearchController {
         return service.getTrackByTrackId(trackId);
     }
 
+    @GetMapping("/api/albums/{artistId}")
+    public List<Album> getAlbumsByArtistId(@PathVariable Long artistId) {
+        return service.getAlbumsByArtistId(artistId);
+    }
+
+    @GetMapping("/api/album/{albumId}")
+    public Album getAlbumById(@PathVariable Long albumId) {
+        return service.getAlbumById(albumId);
+    }
+
 }

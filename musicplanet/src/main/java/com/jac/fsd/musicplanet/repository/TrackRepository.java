@@ -38,4 +38,12 @@ public class TrackRepository {
         }
     }
 
+    // TODO api db fill
+    public Long saveTrack(Track track) {
+        String sql = "INSERT INTO tracks(track_id, track_name, album_id, artist_id) VALUES(?, ?, ?, ?)";
+        jdbcTemplate.update(sql, track.getTrackId(), track.getTrackName(), track.getAlbumId(), track.getArtistId());
+
+        return track.getTrackId();
+    }
+
 }

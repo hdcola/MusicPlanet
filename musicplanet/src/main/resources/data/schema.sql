@@ -10,8 +10,15 @@ CREATE TABLE IF NOT EXISTS authorities (
 CREATE TABLE IF NOT EXISTS artists ( artist_name VARCHAR(100) NOT NULL PRIMARY KEY, artist_id INT NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `tracks` (
-  `track_id` INT NOT NULL,
-  `track_name` VARCHAR(300) NULL,
-  `album_id` INT NULL,
-  `artist_id` INT NULL,
-  PRIMARY KEY (`track_id`));
+    `track_id` INT NOT NULL,
+    `track_name` VARCHAR(300) NULL,
+    `album_id` INT NULL,
+    `artist_id` INT NULL,
+    PRIMARY KEY (`track_id`));
+
+CREATE TABLE IF NOT EXISTS `albums` (
+    `album_id` INT NOT NULL,
+    `album_name` VARCHAR(300) NULL,
+    `artist_id` INT NULL,
+    `year_of_release` INT NULL,
+    PRIMARY KEY (`album_id`));

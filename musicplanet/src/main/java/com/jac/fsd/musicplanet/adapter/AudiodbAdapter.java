@@ -1,17 +1,11 @@
 package com.jac.fsd.musicplanet.adapter;
 
-import com.jac.fsd.musicplanet.DTO.ArtistDetailsDTO;
-import com.jac.fsd.musicplanet.DTO.DiscographyDTO;
-import com.jac.fsd.musicplanet.DTO.TrackDTO;
-import com.jac.fsd.musicplanet.DTO.TrackListDTO;
+import com.jac.fsd.musicplanet.DTO.*;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Component
@@ -68,6 +62,7 @@ public class AudiodbAdapter {
         return trackDTOList;
     }
 
+    // returning a TrackListDTO because the data is returned in an array of a single element
     public TrackListDTO getTrackByTrackId(Long trackId) {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -83,5 +78,33 @@ public class AudiodbAdapter {
         return trackDTOList;
     }
 
+    public AlbumListDTO getAlbumById(Long albumId) {
+        RestTemplate restTemplate = new RestTemplate();
 
+        final String route = apiUrl.concat("{key}/album.php?m={id}");
+
+        String strId = Long.toString(albumId);
+
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("key", apiKey);
+        parameters.put("id", strId);
+
+        AlbumListDTO albumListDTO = restTemplate.getForObject(route, AlbumListDTO.class, parameters);
+        return albumListDTO;
+    }
+
+    public AlbumListDTO getAlbumsByArtistId(Long artistId) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        final String route = apiUrl.concat("{key}/album.php?i={id}");
+
+        String strId = Long.toString(artistId);
+
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("key", apiKey);
+        parameters.put("id", strId);
+
+        AlbumListDTO albumListDTO = restTemplate.getForObject(route, AlbumListDTO.class, parameters);
+        return albumListDTO;
+    }
 }

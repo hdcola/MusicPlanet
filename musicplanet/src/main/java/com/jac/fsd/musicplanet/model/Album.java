@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class Album {
+    private Long albumId;
     private String albumName;
+    private Long artistId;
     private int yearOfRelease;
 }

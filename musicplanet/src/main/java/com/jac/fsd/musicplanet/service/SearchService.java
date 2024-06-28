@@ -4,6 +4,7 @@ import com.jac.fsd.musicplanet.adapter.AudiodbAdapter;
 import com.jac.fsd.musicplanet.model.Album;
 import com.jac.fsd.musicplanet.model.Artist;
 import com.jac.fsd.musicplanet.model.Biography;
+import com.jac.fsd.musicplanet.repository.AlbumRepository;
 import com.jac.fsd.musicplanet.repository.ArtistRepository;
 import com.jac.fsd.musicplanet.model.Track;
 import com.jac.fsd.musicplanet.repository.TrackRepository;
@@ -24,6 +25,9 @@ public class SearchService {
 
     @Autowired
     private ArtistRepository artistRepository;
+
+    @Autowired
+    private AlbumRepository albumRepository;
 
     public List<Album> getDiscography(String artistName) {
         var discographyDTO = adapter.getDiscography(artistName);
@@ -93,4 +97,40 @@ public class SearchService {
 
         return biographyObj;
     }
+
+    public List<Album> getAlbumsByArtistId(Long artistId) {
+        List<Album> albums = albumRepository.getAlbumsByArtistId(artistId);
+
+        if (albums == null || albums.isEmpty()) {
+            var albumListDTO = adapter.getAlbumsByArtistId(artistId);
+
+            return albumListDTO.getAlbumDTOs().stream()
+                    .map(albumDTO -> Album.builder()
+                            .albumId(albumDTO.getAlbumId())
+                            .albumName(albumDTO.getAlbumName())
+                            .artistId(albumDTO.getArtistId())
+                            .yearOfRelease(Integer.parseInt(albumDTO.getYearOfRelease()))
+                            .build())
+                    .collect(Collectors.toList());
+        }
+        return albums;
+    }
+
+    public Album getAlbumById(Long albumId) {
+        Album album = albumRepository.getAlbumById(albumId);
+
+        if (album != null) {
+            return album;
+        } else {
+            var albumDTO = adapter.getAlbumById(albumId).getAlbumDTOs().get(0);
+
+            return Album.builder()
+                    .albumId(albumDTO.getAlbumId())
+                    .albumName(albumDTO.getAlbumName())
+                    .artistId(albumDTO.getArtistId())
+                    .yearOfRelease(Integer.parseInt(albumDTO.getYearOfRelease()))
+                    .build();
+        }
+    }
+
 }
